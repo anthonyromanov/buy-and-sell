@@ -1,0 +1,5 @@
+li.pagination-item.active {
+    color: #fff;
+    background-color: #2b51a6;
+    border-radius: 50%;
+}

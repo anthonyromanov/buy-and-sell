@@ -22,10 +22,12 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/style.min.css',
     ];
+
     public $js = [
-        'js/main.js',
-        'js/vendor.js'
+    //'js/main.js',
+    //'js/vendor.js',
     ];
+
     public $depends = [
         'yii\web\YiiAsset',
     ];

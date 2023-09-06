@@ -3,40 +3,21 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+
+use app\models\Category;
+use app\models\Ticket;
+use Buyandsell\Tickets;
+use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
+use app\models\User;
+use app\models\Auth;
+use yii\authclient\clients\VKontakte;
+use Buyandsell\VK;
 
 class SiteController extends Controller
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
 
     /**
      * {@inheritdoc}
@@ -44,12 +25,13 @@ class SiteController extends Controller
     public function actions()
     {
         return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
+              'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'onAuthSuccess'],
             ],
         ];
     }
@@ -61,7 +43,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new Tickets();
+
+        $categories = $model->getCategoriesList();
+        $fresh_tickets = $model->getFreshTickets();
+        $popular_tickets = $model->getPopularTickets();
+
+        return $this->render('index', [
+            'categories' => $categories,
+            'fresh_tickets' => $fresh_tickets,
+            'popular_tickets' => $popular_tickets,
+        ]);
     }
 
     /**
@@ -71,19 +63,7 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
-
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
-
-        $model->password = '';
-        return $this->render('login', [
-            'model' => $model,
-        ]);
+        return $this->goHome();
     }
 
     /**
@@ -99,30 +79,45 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays contact page.
-     *
-     * @return Response|string
-     */
-    public function actionContact()
-    {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-            Yii::$app->session->setFlash('contactFormSubmitted');
-
-            return $this->refresh();
-        }
-        return $this->render('contact', [
-            'model' => $model,
-        ]);
-    }
-
-    /**
-     * Displays about page.
+     * Auth action.
      *
      * @return string
      */
-    public function actionAbout()
+    public function onAuthSuccess($client)
     {
-        return $this->render('about');
-    }
+        $attributes = $client->getUserAttributes();
+
+        $vk = new Vk();
+        $auth = $vk->auth($client, $attributes);
+
+        if (Yii::$app->user->isGuest) {
+            if ($auth) {
+                $user = $auth->user;
+                Yii::$app->user->login($user);
+                $this->goHome();
+            }
+
+            if (isset($attributes['email']) && User::find()->where(['email' => $attributes['email']])->exists()) {
+                Yii::$app->getSession()->setFlash('error', [
+                    Yii::t('app', "Пользователь с такой электронной почтой как в {client} уже существует,
+                    но с ним не связан. Для начала войдите на сайт использую электронную почту для того,
+                    чтобы связать её.", ['client' => $client->getTitle()]),
+                ]);
+            }
+
+            $auth = $vk->registration($client, $attributes);
+            $this->goHome();
+        }
+
+        else { // Пользователь уже зарегистрирован
+            if (!$auth) { // добавляем внешний сервис аутентификации
+                $auth = new Auth([
+                    'user_id' => Yii::$app->user->id,
+                    'source' => $client->getId(),
+                    'source_id' => $attributes['id'],
+                ]);
+                $auth->save();
+            }
+        }
+    }   
 }

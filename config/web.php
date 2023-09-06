@@ -5,6 +5,10 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'ru-RU',
+    'name' => 'Buy and Sell',
+    'sourceLanguage' => 'ru-RU',
+    'timeZone' => 'Europe/Moscow',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -24,7 +28,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'error/error',
         ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
@@ -42,14 +46,49 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
             'rules' => [
+                '//' => '/',
+                'offers/<id:\d+>' => 'offers',
+                'offers/edit/<id:\d+>' => 'offers/edit',
+                'my/delete/<id:\d+>' => 'my/delete',
+                'offers/category/<id:\d+>' => 'offers/category',
+                'my' => 'my/index',
+                'search' => 'search/index',
             ],
         ],
-        */
+        'formatter' => [
+            'class' => 'yii\i18n\Formatter',
+            'locale' => 'ru-RU',
+            'defaultTimeZone' => 'Europe/Moscow',
+            'datetimeFormat' => 'php:j F, H:i',
+            'dateFormat' => 'php:j F yy',
+            'sizeFormatBase' => 1000,
+            'decimalSeparator' => '.',
+            'thousandSeparator' => ' ',
+            'numberFormatterOptions' => [\NumberFormatter::MIN_FRACTION_DIGITS => 0,
+            \NumberFormatter::MAX_FRACTION_DIGITS => 2],            
+        ],
+
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'vkontakte' => [
+                    'class' => 'yii\authclient\clients\VKontakte',
+                    'clientId' => 51734965,
+                    'clientSecret' => '9CsWF7LyICwzYbGVrmSK',
+                    'scope' => 'email',
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];
