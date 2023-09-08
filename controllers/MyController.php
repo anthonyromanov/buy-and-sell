@@ -16,14 +16,23 @@ class MyController extends AccessController
 
         $rules = parent::behaviors();
         $rule = [
-            'allow' => true,
-            'actions' => ['remove>'],
+            'allow' => false,
+            'actions' => ['remove', 'delete'],
             'matchCallback' => function ($rule, $action) {
-                return Yii::$app->user->can('viewOwnContent');
+                return Yii::$app->user->can('canUser');
+            }
+        ];
+
+        $ruleModerator = [
+            'allow' => true,
+            'actions' => ['remove', 'delete'],
+            'matchCallback' => function ($rule, $action) {
+                return Yii::$app->user->can('viewContent', 'viewOwnContent');
             }
         ];
 
         array_unshift($rules['access']['rules'], $rule);
+        array_unshift($rules['access']['rules'], $ruleModerator);
 
         return $rules;
     }
@@ -65,7 +74,7 @@ class MyController extends AccessController
 
         $model = new Tickets();
         $myTicketsComments = $model->getMyTicketsComments();
- 
+
         return $this->render('comments', [
             'myTicketsComments' => $myTicketsComments,
         ]);
