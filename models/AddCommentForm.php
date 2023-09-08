@@ -22,6 +22,7 @@ class AddCommentForm extends Model
         return [
             [['ticket_id', 'user_id'], 'integer'],
             [['comment'], 'string'],
+            [['comment'], 'required', 'message' => 'Обязательное поле'],
             [['ticket_id'], 'exist', 'skipOnError' => true,
             'targetClass' => Ticket::className(),
             'targetAttribute' => ['ticket_id' => 'id']],

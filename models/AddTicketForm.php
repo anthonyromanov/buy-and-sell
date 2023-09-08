@@ -33,7 +33,7 @@ class AddTicketForm extends Model
     public function rules()
     {
         return [
-            [['title', 'price'], 'required'],
+            [['title', 'description', 'price'], 'required', 'message' => 'Обязательное поле'],
             [['title'], 'string', 'min' => 10, 'max' => 100],
             [['description', 'type'], 'string'],
             [['description'], 'string', 'min' => 50, 'max' => 1000],

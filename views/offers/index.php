@@ -12,11 +12,9 @@ $this->registerJsFile(
     'position' => \yii\web\View::POS_BEGIN]
 );
 
-$this->registerJsFile(
-    '/js/firebase.js',
-    [
-    'position' => \yii\web\View::POS_BEGIN]
-);
+$this->registerCssFile(
+    '/css/custom.css'
+  );  
 
 ?>
 
@@ -57,7 +55,7 @@ $this->registerJsFile(
                 <ul class="ticket__tags">
                 <?php foreach (Tickets::getCategoriesToTicket($ticket->id) as $category): ?>
                      <li>
-                        <a href="#" class="category-tile category-tile--small">
+                        <a href="<?= Url::to(['/offers/category', 'id' => $category->id]); ?>" class="category-tile category-tile--small">
                             <span class="category-tile__image">
                                 <img src="<?= Html::encode($category->path); ?>.jpg" srcset="<?= Html::encode($category->path); ?>@2x.jpg 2x" alt="Иконка категории">
                             </span>
@@ -70,14 +68,14 @@ $this->registerJsFile(
         </div>
 
         <div class="ticket__comments">
-            <?php if (Yii::$app->user->isGuest) : ?>
+        <?php if (!Yii::$app->user->can('canUser')) : ?>
                 <div class="ticket__warning">
                     <p>Отправка комментариев доступна <br>только для зарегистрированных пользователей.</p>
                     <a href="<?= Url::to(['/login']); ?>" class="btn btn--big">Вход и регистрация</a>
                 </div>
             <?php endif; ?>
 
-            <?php if (!Yii::$app->user->isGuest) : ?>
+            <?php if (Yii::$app->user->can('canUser')) : ?>
             <h2 class="ticket__subtitle">Коментарии</h2>
             <div class="ticket__comment-form">
             <?php $form = ActiveForm::begin([
@@ -100,7 +98,7 @@ $this->registerJsFile(
                 <?= Html::submitInput('Отправить', ['class' => 'comment-form__button btn btn--white js-button']); ?>
             <?php ActiveForm::end(); ?>
             </div>
-
+            <?php endif; ?>
             <?php if (!isset($commentsCount) || $commentsCount === 0) : ?> 
             <div class="ticket__message">
                 <p>У этой публикации еще нет ни одного комментария.</p>
@@ -126,38 +124,13 @@ $this->registerJsFile(
             </div>
             <?php endif; ?>
         </div>
-        <?php endif; ?>
         <button class="chat-button" type="button" aria-label="Открыть окно чата"></button>
     </div>
 </section>
 
+<?php if (Yii::$app->user->can('canUser')) : ?>
 <section class="chat visually-hidden">
-  <h2 class="chat__subtitle">Чат с продавцом</h2>
-  <ul class="chat__conversation">
-    <li class="chat__message">
-      <div class="chat__message-title">
-        <span class="chat__message-author">Вы</span>
-        <time class="chat__message-time" datetime="2021-11-18T21:15">21:15</time>
-      </div>
-      <div class="chat__message-content">
-        <p>Добрый день!</p>
-        <p>Какова ширина кресла? Из какого оно материала?</p>
-      </div>
-    </li>
-    <li class="chat__message">
-      <div class="chat__message-title">
-        <span class="chat__message-author">Продавец</span>
-        <time class="chat__message-time" datetime="2021-11-18T21:21">21:21</time>
-      </div>
-      <div class="chat__message-content">
-        <p>Добрый день!</p>
-        <p>Ширина кресла 59 см, это хлопковая ткань. кресло очень удобное, и почти новое, без сколов и прочих дефектов</p>
-      </div>
-    </li>
-  </ul>
-  <form class="chat__form">
-    <label class="visually-hidden" for="chat-field">Ваше сообщение в чат</label>
-    <textarea class="chat__form-message" name="chat-message" id="chat-field" placeholder="Ваше сообщение"></textarea>
-    <button class="chat__form-button" type="submit" aria-label="Отправить сообщение в чат"></button>
-  </form>
+    <iframe class="chating" src="/chat.php">
+    </iframe>
 </section>
+<?php endif;?>

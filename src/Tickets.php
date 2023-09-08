@@ -113,17 +113,21 @@ class Tickets
     public function getMyTickets(): ?ActiveDataProvider
     {
 
-        $idCurrent = Yii::$app->user->getId();
+        $query = Ticket::find();
+
+        if (Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()]))
+        {
+            $query = Ticket::find()->where(['user_id' => Yii::$app->user->getId()]);
+        }
 
         $tickets = new ActiveDataProvider([
-            'query' => Ticket::find()
-            ->where(['user_id' => $idCurrent]),
+            'query' => $query,
             'totalCount' => 8,
             'pagination' => [
-                'pageSize' => 8,
+            'pageSize' => 8,
             ],
             'sort' => ['defaultOrder' => ['creation' => SORT_DESC]]
-        ]);
+            ]);
 
         return $tickets ?? null;
     }
@@ -189,14 +193,16 @@ class Tickets
      */
     public function getMyTicketsComments(): ?ActiveDataProvider
     {
-
-        $idCurrent = Yii::$app->user->getId();
-       
-        $ticketsList = Ticket::find()
-        ->where(['ticket.user_id' => $idCurrent]);
+        
+        $query = Ticket::find();
+        
+        if (Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()]))
+        {
+            $query = Ticket::find()->where(['user_id' => Yii::$app->user->getId()]);
+        }
 
         $tickets = new ActiveDataProvider([
-            'query' => $ticketsList,
+            'query' => $query,
             'totalCount' => 8,
             'pagination' => [
                 'pageSize' => 8,

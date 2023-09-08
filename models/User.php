@@ -91,7 +91,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['vk_token'], 'integer'],
             [['name', 'email'], 'string', 'max' => 128],
             [['avatar', 'password'], 'string', 'max' => 255],
-            [['email'], 'unique'],
+            [['email'], 'unique', 'message'=> 'введите адрес'],
         ];
     }
 
@@ -103,10 +103,10 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => 'ID',
             'registration' => 'Registration',
-            'name' => 'Name',
+            'name' => 'Имя',
             'birthday' => 'Birthday',
-            'avatar' => 'Avatar',
-            'email' => 'Эл. почта',
+            'avatar' => 'Аватар',
+            'email' => 'Электронная почта',
             'vk_token' => 'Vk Token',
             'password' => 'Пароль',
         ];

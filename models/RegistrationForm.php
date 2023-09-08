@@ -26,11 +26,11 @@ class RegistrationForm extends Model
     public function rules()
     {
         return [
-            [['name', 'email', 'password', 'repeat_password'], 'required'],
+            [['name', 'email', 'password', 'repeat_password'], 'required', 'message' => 'Обязательное поле'],
             [['name'], 'match', 'pattern' => '~^(\p{L}|\p{Zs})+$~u'],
             [['password', 'repeat_password', 'name', 'email'], 'string', 'min' => 6],
             [['password', 'repeat_password'], 'string', 'min' => 6],
-            [['repeat_password'], 'compare', 'compareAttribute' => 'password'],
+            [['repeat_password'], 'compare', 'compareAttribute' => 'password', 'message' => 'Пароли не совпадают'],
             [['email'], 'email', 'message' => 'Неверный email'],
             [['email'], 'unique', 'targetClass' => User::class],
             [['avatar'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],

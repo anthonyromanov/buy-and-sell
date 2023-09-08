@@ -20,7 +20,14 @@ use \yii\helpers\StringHelper;
             <?php endforeach; ?>
             </div>
             <div class="ticket-card__header">
-                <h3 class="ticket-card__title"><a href="<?= Url::to(['/offers/edit', 'id' => $model->id]); ?>"><?= Html::encode($model->title);?></a></h3>
+                <h3 class="ticket-card__title">
+                    <?php if (Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()])): ?>
+                    <a href="<?= Url::to(['/offers/edit', 'id' => $model->id]); ?>"><?= Html::encode($model->title);?></a>
+                    <?php endif; ?>
+                    <?php if (Yii::$app->user->can('viewContent')): ?>
+                    <?= Html::encode($model->title);?>
+                    <?php endif; ?>
+                </h3>
                 <p class="ticket-card__price"><span class="js-sum"><?= Html::encode(Yii::$app->formatter->asDecimal($model->price)); ?></span> ₽</p>
             </div>
         </div>

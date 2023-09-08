@@ -28,7 +28,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <body>
 <?php $this->beginBody() ?>
 
-<header class="header <?=(!Yii::$app->user->isGuest) ? 'header--logged' : ''; ?>">
+<header class="header <?=(Yii::$app->user->can('canUser')) ? 'header--logged' : ''; ?>">
   <div class="header__wrapper">
     <a class="header__logo logo" href="<?= Url::home(); ?>">
       <img src="/img/logo.svg" width="179" height="34" alt="Логотип Куплю Продам">
@@ -78,14 +78,17 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     </div>
     <div class="page-footer__col">
       <ul class="page-footer__nav">
-        <?php if (Yii::$app->user->isGuest) : ?>
+        <?php if (!Yii::$app->user->can('canUser')) : ?>
         <li>
           <a href="<?= Url::to(['/login']); ?>">Вход и регистрация</a>
         </li>
         <?php endif; ?>
-        <?php if (!Yii::$app->user->isGuest) : ?>
+        <?php if (Yii::$app->user->can('canUser')) : ?>
         <li>
           <a href="<?= Url::to(['offers/add']); ?>">Создать объявление</a>
+        </li>
+        <li>
+          <a href="<?= Url::to(['/logout']); ?>">Выход</a>
         </li>
         <?php endif; ?>
       </ul>

@@ -7,6 +7,11 @@ use yii\authclient\widgets\AuthChoice;
 
 $this->title = 'Куплю Продам';
 
+$this->registerCssFile(
+  '/css/custom.css'
+);
+
+
 ?>
 
 <section class="login">
@@ -15,6 +20,7 @@ $this->title = 'Куплю Продам';
   'id' => 'login-form',
   'options' => [
   'class' => 'login__form form',
+  'autocomplete' => 'off'
   ],                   
   ]);
 ?>
@@ -23,12 +29,11 @@ $this->title = 'Куплю Продам';
   <h2>Вход</h2>
 </div>
 <?php echo $form->field($model, 'email', [
-'enableAjaxValidation' => true, 'template' => "{label}\n{input}\n{error}", 'options' => [
-'class' => 'form__field login__field'], 'labelOptions' => ['class' => 'js-field']])->input('email');
+'enableAjaxValidation' => true, 'template' => "{input}\n{error}", 'options' => [
+'class' => 'form__field login__field'], 'inputOptions' => ['placeholder' => 'Электронная почта']])->input('email');
 ?>
-<?php echo $form->field($model, 'password', [
-'enableAjaxValidation' => true, 'template' => "{label}\n{input}\n{error}", 'options' => [
-'class' => 'form__field login__field']])->passwordInput();
+<?php echo $form->field($model, 'password', [ 'template' => "{input}\n{error}", 'options' => [
+'class' => 'form__field login__field'], 'inputOptions' => ['placeholder' => 'Пароль']])->passwordInput();
 ?>
 
 <?= Html::submitInput('Войти', [

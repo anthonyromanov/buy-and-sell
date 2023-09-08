@@ -6,18 +6,20 @@ use yii;
 use yii\web\Controller;
 use yii\web\Response;
 use Buyandsell\Tickets;
+use Buyandsell\Rules\AuthorRule;
 
 class MyController extends AccessController
 {
 
     public function behaviors()
     {
+
         $rules = parent::behaviors();
         $rule = [
-            'allow' => false,
-            'actions' => ['delete', 'remove'],
+            'allow' => true,
+            'actions' => ['remove>'],
             'matchCallback' => function ($rule, $action) {
-                return Yii::$app->user->can('canUser');
+                return Yii::$app->user->can('viewOwnContent');
             }
         ];
 
@@ -26,11 +28,10 @@ class MyController extends AccessController
         return $rules;
     }
 
-
     public function actionIndex()
     {
-
         $model = new Tickets();
+
         $myTickets = $model->getMyTickets();
 
         return $this->render('index', [

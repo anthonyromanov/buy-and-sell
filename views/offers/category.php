@@ -46,6 +46,7 @@ $this->registerCssFile(
                   'pager' => [
                       'prevPageLabel' => '',
                       'nextPageLabel' => 'далее',
+                      'disableCurrentPageButton' => true,
                       'options' => [
                           'tag' => 'ul',
                           'class' => 'pagination'

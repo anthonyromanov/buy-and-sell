@@ -90,7 +90,7 @@ class SiteController extends Controller
         $vk = new Vk();
         $auth = $vk->auth($client, $attributes);
 
-        if (Yii::$app->user->isGuest) {
+        if (!Yii::$app->user->can('canUser')) {
             if ($auth) {
                 $user = $auth->user;
                 Yii::$app->user->login($user);

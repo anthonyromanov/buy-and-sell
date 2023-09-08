@@ -7,6 +7,10 @@ use yii\authclient\widgets\AuthChoice;
 
 $this->title = 'Куплю Продам';
 
+$this->registerCssFile(
+  '/css/custom.css'
+);
+
 ?>
 
 <section class="sign-up">
@@ -30,30 +34,26 @@ $this->title = 'Куплю Продам';
           <?php endif; ?>
           </div>
           <?= $form->field($model, 'avatar', [
-          'enableAjaxValidation' => true, 'template' => '{input}{label}', 'options' => [
+          'enableAjaxValidation' => true, 'template' => "{input}\n{error}", 'options' => [
           'class' => 'sign-up__field-avatar']])
                 ->fileInput(['id' => 'button-input', 'hidden' => 'hidden'])
                 ->label((isset($model->avatar)) ? 'Загрузить другое фото…' : 'Загрузить фото…', ['for' => 'button-input', 'class' => 'js-file-field']); ?>
         </div>
         <?php echo $form->field($model, 'name', [
-        'enableAjaxValidation' => true, 'template' => "{label}\n{input}\n{error}", 'options' => [
-        'class' => 'form__field sign-up__field']])->textInput(['options' => ['class' => 'js-field', 'autocorrect' => 'off',
-        'autocomplete' => 'off', 'autocapitalize' => 'off']]);
+        'enableAjaxValidation' => true, 'template' => "{input}\n{error}", 'options' => [
+        'class' => 'form__field sign-up__field'], 'inputOptions' => ['placeholder' => 'Имя и фамилия']])->textInput();
         ?>
         <?php echo $form->field($model, 'email', [
-        'enableAjaxValidation' => true, 'template' => "{label}\n{input}\n{error}", 'options' => [
-        'class' => 'form__field sign-up__field']])->input('email', ['options' => ['class' => 'js-field', 'autocorrect' => 'off',
-        'autocomplete' => 'off', 'autocapitalize' => 'off']]);
+        'enableAjaxValidation' => true, 'template' => "{input}\n{error}", 'options' => [
+        'class' => 'form__field sign-up__field'], 'inputOptions' => ['placeholder' => 'Электронная почта']])->input('email');
         ?>
           <?php echo $form->field($model, 'password', [
-          'enableAjaxValidation' => true, 'template' => "{label}\n{input}\n{error}", 'options' => [
-          'class' => 'form__field sign-up__field']])->passwordInput(['options' => ['class' => 'js-field', 'autocorrect' => 'off',
-          'autocomplete' => 'off', 'autocapitalize' => 'off']]);
+          'enableAjaxValidation' => true, 'template' => "{input}\n{error}", 'options' => [
+          'class' => 'form__field sign-up__field'], 'inputOptions' => ['placeholder' => 'Пароль']])->passwordInput();
           ?>
           <?php echo $form->field($model, 'repeat_password', [
-          'enableAjaxValidation' => true, 'template' => "{label}\n{input}\n{error}", 'options' => [
-          'class' => 'form__field sign-up__field']])->passwordInput(['options' => ['class' => 'js-field', 'autocorrect' => 'off',
-          'autocomplete' => 'off', 'autocapitalize' => 'off']]);
+          'enableAjaxValidation' => true, 'template' => "{input}\n{error}", 'options' => [
+          'class' => 'form__field sign-up__field'], 'inputOptions' => ['placeholder' => 'Повтор пароля']])->passwordInput();
         ?>        
         <?= Html::submitInput('Создать аккаунт', ['class' => 'sign-up__button btn btn--medium js-button']); ?>
 

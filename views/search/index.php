@@ -58,7 +58,7 @@ use \yii\helpers\StringHelper;
                   'itemOptions' => [
                     'tag' => false,
                   ],
-                  'layout' =>  '<div class="tickets-list__header"><p class="tickets-list__title">Самое свежее</p><a href="#" class="tickets-list__link"><div>{summary}</div></a></div><ul>{items}</ul>{pager}',
+                  'layout' =>  '<div class="tickets-list__header"><p class="tickets-list__title">Самое свежее</p><a href="#" class="tickets-list__link"><div>{pager}</div></a></div><ul>{items}</ul>',
                   'summary' => 'Ещё {count}',
                   'emptyText' => false,
                   'options' => [
@@ -66,11 +66,11 @@ use \yii\helpers\StringHelper;
                   ],
                   'pager' => [
                     'prevPageLabel' => '',
-                    'nextPageLabel' => '',
-                    'maxButtonCount' => 5,
+                    'nextPageLabel' => 'Еще',
+                    'maxButtonCount' => 0,
                     'options' => [
                         'tag' => 'ul',
-                        'class' => 'pagination'
+                        'class' => 'pagination',
                     ],
                     'linkOptions' => [
                       'tag' => 'ul',

@@ -4,6 +4,12 @@ use yii\helpers\Html;
 use Buyandsell\Tickets;
 use yii\widgets\ActiveForm;
 
+$this->title = 'Куплю Продам';
+
+$this->registerCssFile(
+  '/css/custom.css'
+);
+
 ?>
 
 <section class="ticket-form">
@@ -25,14 +31,12 @@ use yii\widgets\ActiveForm;
 
           <div class="ticket-form__content">
             <div class="ticket-form__row">
-              <?php echo $form->field($ticketForm, 'title', ['template' => "{input}\n{label}\n{error}", 'options' => [
-                'class' => 'form__field']])->textInput(['options' => ['class' => 'js-field', 'autocorrect' => 'off',
-                'autocomplete' => 'off', 'autocapitalize' => 'off']]); ?>
+              <?php echo $form->field($ticketForm, 'title', ['template' => "{input}\n{error}", 'options' => [
+                'class' => 'form__field'], 'inputOptions' => ['placeholder' => 'Название']])->textInput(); ?>
             </div>
             <div class="ticket-form__row">
-                <?php echo $form->field($ticketForm, 'description', ['template' => "{input}\n{label}\n{error}", 'options' => [
-                  'class' => 'form__field']])->textarea(['options' => ['class' => 'js-field', 'autocorrect' => 'off',
-                  'autocomplete' => 'off', 'autocapitalize' => 'off']]); ?>
+                <?php echo $form->field($ticketForm, 'description', ['template' => "{input}\n{error}", 'options' => [
+                  'class' => 'form__field'], 'inputOptions' => ['placeholder' => 'Описание']])->textarea(); ?>
             </div>
             <div class="ticket-form__row">
             <?php echo $form->field($ticketForm, 'categories[]', ['template' => "{input}\n{error}", 'options' => ['tag' => false]])
@@ -40,8 +44,8 @@ use yii\widgets\ActiveForm;
             ?>
             </div>
             <div class="ticket-form__row">
-              <?php echo $form->field($ticketForm, 'price', ['template' => "{input}\n{label}\n{error}", 'options' => [
-                'class' => 'form__field form__field--price']])->textInput(['options' => ['class' => 'js-field js-price']]); ?>
+              <?php echo $form->field($ticketForm, 'price', ['template' => "{input}\n{error}", 'options' => [
+                'class' => 'form__field form__field--price'], 'inputOptions' => ['placeholder' => 'Цена']])->textInput(); ?>
 
               <div class="form__switch switch">
                 <? echo $form->field($ticketForm, 'type', ['template' => "{input}\n{label}\n{error}", 'options' => ['class' => 'switch__item'],

@@ -8,7 +8,11 @@ use \yii\helpers\StringHelper;
 use yii\widgets\ListView;
 
 ?>
-<?php if (Tickets::getMyTicketsCommentsCount($model->id) > 0) : ?> 
+<?php if (Yii::$app->user->can('viewContent') && Tickets::getMyTicketsCommentsCount($model->id) > 0
+|| Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()]) && Tickets::getMyTicketsCommentsCount($model->id) > 0
+) : ?>
+
+<?php echo Yii::$app->user->can('viewOwnContent', ['user_id' => $model->id]); ?>
     <div class="comments__block">
         <div class="comments__header">
             <a href="<?= Url::to(['/offers', 'id' => $model->id]); ?>" class="announce-card">
@@ -32,6 +36,8 @@ use yii\widgets\ListView;
                     <div class="comment-card__content">
                         <p><?= Html::encode($data->comment);?></p>
                     </div>
+
+                        
                     <a href="<?= Url::to(['/my/remove', 'id' => $data->id]); ?>" class="comment-card__delete js-delete">Удалить</a>
                 </div>
             </li>

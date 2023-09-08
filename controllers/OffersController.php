@@ -11,18 +11,19 @@ use app\models\AddCommentForm;
 use app\models\AddTicketForm;
 use app\models\EditTicketForm;
 use yii\helpers\ArrayHelper;
+use Buyandsell\Rules\AuthorRule;
 
-class OffersController extends Controller
+class OffersController extends AccessController
 {
 
-/*    public function behaviors()
+    public function behaviors()
     {
         $rules = parent::behaviors();
         $rule = [
-            'allow' => true,
-            'actions' => ['add', 'edit'],
+            'allow' => false,
+            'actions' => ['edit', 'add'],
             'matchCallback' => function ($rule, $action) {
-                return !Yii::$app->user->can('canUser');
+                return Yii::$app->user->can('viewContent');
             }
         ];
 
@@ -30,7 +31,6 @@ class OffersController extends Controller
 
         return $rules;
     }
-*/
     
     public function actionIndex(int $id)
     {
@@ -161,7 +161,6 @@ class OffersController extends Controller
         $user = Yii::$app->authManager->createRole('user');
         $user->description = 'Пользователь';
         Yii::$app->authManager->add($user);
-
     
         $permit = Yii::$app->authManager->createPermission('canUser');
         $permit->description = 'Право входа в личный кабинет';
@@ -179,13 +178,30 @@ class OffersController extends Controller
         $userRole = Yii::$app->authManager->getRole('user');
         Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
 
-        // Добавляем разрешение "EditTicket"
-        $editTicket = Yii::$app->authManager->createPermission('editTicket');
-        $editTicket->description = 'Редактирование объявления';
-        Yii::$app->authManager->add($editTicket);
+    
+        // Добавляем правило проверки является ли текущий пользователь автором объявления
+        $auth = Yii::$app->authManager;
+        $rule = new AuthorRule();
+        $auth->add($rule);
 
-        */
-      
+        // Добавляем разрешение "canModerator"
+        $canModerator = Yii::$app->authManager->createPermission('canModerator');
+        $canModerator->description = 'Редактирование объявления';
+        Yii::$app->authManager->add($canModerator);
+  
+        // Добавляем разрешение "canAuthor"
+        $canAuthor = Yii::$app->authManager->createPermission('canAuthor');
+        $canAuthor->description = 'Смотреть свои объявления и комментарии';
+        $canAuthor->ruleName = $rule->name;
+        Yii::$app->authManager->add($сanAuthor);
+
+        // Добавляем наследование 
+        //$userRole = Yii::$app->authManager->getRole('user');
+        //$moderatorRole = Yii::$app->authManager->getRole('moderator');
+        //Yii::$app->authManager->addChild($userRole, $canAuthor);
+        //Yii::$app->authManager->addChild($moderatorRole, $canModerator);
+
+   */     
         return 'Добавлено';
     }
 
