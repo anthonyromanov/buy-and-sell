@@ -10,7 +10,6 @@ use Buyandsell\Rules\AuthorRule;
 
 class MyController extends AccessController
 {
-
     public function behaviors()
     {
 
@@ -54,9 +53,8 @@ class MyController extends AccessController
 
         $model = new Tickets();
         $deleteTicket = $model->deleteMyTickets($id);
-             
+
         return $this->refresh();
-       
     }
 
     public function actionRemove(int $id)
@@ -64,9 +62,8 @@ class MyController extends AccessController
 
         $model = new Tickets();
         $deleteTicket = $model->removeComment($id);
-             
+
         return $this->redirect('/my/comments');
-       
     }
 
     public function actionComments()

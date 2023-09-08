@@ -5,7 +5,7 @@ use Buyandsell\Tickets;
 use yii\widgets\ListView;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use \yii\helpers\StringHelper;
+use yii\helpers\StringHelper;
 
 ?>
 
@@ -15,7 +15,7 @@ use \yii\helpers\StringHelper;
     <?php if (isset($count) && $count !== 0) : ?> 
       <p class="search-results__label">Найдено <span class="js-results"><?= Html::encode($count); ?> публикации</span></p>
       <ul class="search-results__list">
-      <?php foreach ($results as $search): ?>
+        <?php foreach ($results as $search) : ?>
         <li class="search-results__item">
           <div class="ticket-card ticket-card--color<?php echo sprintf("%02d", Html::encode($search->id));?>">
             <div class="ticket-card__img">
@@ -31,7 +31,7 @@ use \yii\helpers\StringHelper;
                 <p class="ticket-card__price"><span class="js-sum"><?= Html::encode(Yii::$app->formatter->asDecimal($search->price)); ?></span> ₽</p>
               </div>
               <div class="ticket-card__desc">
-                <p><?= Html::encode(StringHelper::truncate($search->description, 55,'...')); ?></p>
+                <p><?= Html::encode(StringHelper::truncate($search->description, 55, '...')); ?></p>
               </div>
             </div>
           </div>
@@ -78,6 +78,6 @@ use \yii\helpers\StringHelper;
                     ],
                   ],
               ]);
-      ?> 
+        ?> 
     </div>
   </section>

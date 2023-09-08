@@ -22,7 +22,6 @@ use Yii;
  */
 class Ticket extends \yii\db\ActiveRecord
 {
-
     /**
      * {@inheritdoc}
      */
@@ -93,5 +92,5 @@ class Ticket extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Category::class, ['id' => 'category_id'])
         ->viaTable('ticket_to_category', ['ticket_id' => 'id']);
-    }      
+    }
 }

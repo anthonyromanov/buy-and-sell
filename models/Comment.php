@@ -17,7 +17,6 @@ use Yii;
  */
 class Comment extends \yii\db\ActiveRecord
 {
-
     public $cnt;
 
     /**
@@ -63,7 +62,6 @@ class Comment extends \yii\db\ActiveRecord
     public function getTicket()
     {
         return $this->hasOne(Ticket::class, ['id' => 'ticket_id']);
-
     }
 
     /**

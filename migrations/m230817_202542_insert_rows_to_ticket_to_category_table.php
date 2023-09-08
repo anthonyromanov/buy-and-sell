@@ -22,7 +22,7 @@ class m230817_202542_insert_rows_to_ticket_to_category_table extends Migration
             [5, 2],
             [6, 2],
             [7, 4],
-            [8, 2],         
+            [8, 2],
         ]);
     }
 
@@ -41,7 +41,7 @@ class m230817_202542_insert_rows_to_ticket_to_category_table extends Migration
             [5, 2],
             [6, 2],
             [7, 4],
-            [8, 2],         
+            [8, 2],
         ]);
     }
 }

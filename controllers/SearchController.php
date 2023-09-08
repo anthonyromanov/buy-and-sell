@@ -19,8 +19,7 @@ class SearchController extends Controller
      */
     public function actionIndex()
     {
-        if (Yii::$app->request->getIsget())
-        {
+        if (Yii::$app->request->getIsget()) {
             $query = trim(Yii::$app->request->get(name: 'query'));
         }
 
@@ -34,6 +33,5 @@ class SearchController extends Controller
                'count' => $count,
                'freshTickets' => $freshTickets,
             ]);
-
     }
 }

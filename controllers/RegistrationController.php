@@ -11,7 +11,6 @@ use yii\helpers\ArrayHelper;
 
 class RegistrationController extends AccessController
 {
-
     public function behaviors()
     {
         $rules = parent::behaviors();

@@ -5,7 +5,6 @@ namespace app\controllers;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
-
 use app\models\Category;
 use app\models\Ticket;
 use Buyandsell\Tickets;
@@ -18,7 +17,6 @@ use Buyandsell\VK;
 
 class SiteController extends Controller
 {
-
     /**
      * {@inheritdoc}
      */
@@ -28,11 +26,11 @@ class SiteController extends Controller
               'captcha' => [
                 'class' => 'yii\captcha\CaptchaAction',
                 'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-            'auth' => [
+              ],
+              'auth' => [
                 'class' => 'yii\authclient\AuthAction',
                 'successCallback' => [$this, 'onAuthSuccess'],
-            ],
+              ],
         ];
     }
 
@@ -107,9 +105,7 @@ class SiteController extends Controller
 
             $auth = $vk->registration($client, $attributes);
             $this->goHome();
-        }
-
-        else { // Пользователь уже зарегистрирован
+        } else { // Пользователь уже зарегистрирован
             if (!$auth) { // добавляем внешний сервис аутентификации
                 $auth = new Auth([
                     'user_id' => Yii::$app->user->id,
@@ -119,5 +115,5 @@ class SiteController extends Controller
                 $auth->save();
             }
         }
-    }   
+    }
 }

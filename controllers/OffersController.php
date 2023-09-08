@@ -15,7 +15,6 @@ use Buyandsell\Rules\AuthorRule;
 
 class OffersController extends AccessController
 {
-
     public function behaviors()
     {
         $rules = parent::behaviors();
@@ -31,7 +30,7 @@ class OffersController extends AccessController
 
         return $rules;
     }
-    
+
     public function actionIndex(int $id)
     {
 
@@ -53,7 +52,7 @@ class OffersController extends AccessController
                 Yii::$app->response->format = Response::FORMAT_JSON;
                  return ActiveForm::validate($commentForm);
             }
-            if ( $commentForm->validate()) {
+            if ($commentForm->validate()) {
                 $commentForm->addComment($id);
                 return $this->redirect(['offers/', 'id' => $id]);
             }
@@ -74,21 +73,17 @@ class OffersController extends AccessController
         $types = ArrayHelper::map(Ticket::find()->all(), 'id', 'type');
         $ticketForm = new AddTicketForm();
 
-        if (Yii::$app->request->getIsPost())
-        {
+        if (Yii::$app->request->getIsPost()) {
             $ticketForm->load(Yii::$app->request->post());
-            if (Yii::$app->request->isAjax)
-            {
+            if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 return ActiveForm::validate($form);
             }
-            
-            if ($ticketForm->validate())
-            {
-                $ticketForm->addTicket();                
+
+            if ($ticketForm->validate()) {
+                $ticketForm->addTicket();
                 return $this->redirect(['my/']);
             }
-            
         }
 
         return $this->render('add', [
@@ -105,17 +100,14 @@ class OffersController extends AccessController
         $ticketForm = new EditTicketForm();
         $categories = ArrayHelper::map(Category::find()->all(), 'id', 'label');
 
-        if (Yii::$app->request->getIsPost())
-        {
+        if (Yii::$app->request->getIsPost()) {
             $ticketForm->load(Yii::$app->request->post());
-            if (Yii::$app->request->isAjax)
-            {
+            if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
                     return ActiveForm::validate($ticketForm);
             }
-            
-            if ($ticketForm->validate())
-            {
+
+            if ($ticketForm->validate()) {
                 $ticketForm->editTicket($id);
                 return $this->redirect(['offers/', 'id' => $ticket->id]);
             }
@@ -153,19 +145,19 @@ class OffersController extends AccessController
         $admin = Yii::$app->authManager->createRole('admin');
         $admin->description = 'Администратор';
         Yii::$app->authManager->add($admin);
-         
+
         $moderator = Yii::$app->authManager->createRole('moderator');
         $moderator->description = 'Модератор';
         Yii::$app->authManager->add($moderator);
-         
+
         $user = Yii::$app->authManager->createRole('user');
         $user->description = 'Пользователь';
         Yii::$app->authManager->add($user);
-    
+
         $permit = Yii::$app->authManager->createPermission('canUser');
         $permit->description = 'Право входа в личный кабинет';
         Yii::$app->authManager->add($permit);
-    
+
         $adminRole = Yii::$app->authManager->getRole('admin');
         $userRole = Yii::$app->authManager->getRole('user');
         $moderatorRole = Yii::$app->authManager->getRole('moderator');
@@ -178,7 +170,7 @@ class OffersController extends AccessController
         $userRole = Yii::$app->authManager->getRole('user');
         Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
 
-    
+
         // Добавляем правило проверки является ли текущий пользователь автором объявления
         $auth = Yii::$app->authManager;
         $rule = new AuthorRule();
@@ -188,21 +180,20 @@ class OffersController extends AccessController
         $canModerator = Yii::$app->authManager->createPermission('canModerator');
         $canModerator->description = 'Редактирование объявления';
         Yii::$app->authManager->add($canModerator);
-  
+
         // Добавляем разрешение "canAuthor"
         $canAuthor = Yii::$app->authManager->createPermission('canAuthor');
         $canAuthor->description = 'Смотреть свои объявления и комментарии';
         $canAuthor->ruleName = $rule->name;
         Yii::$app->authManager->add($сanAuthor);
 
-        // Добавляем наследование 
+        // Добавляем наследование
         //$userRole = Yii::$app->authManager->getRole('user');
         //$moderatorRole = Yii::$app->authManager->getRole('moderator');
         //Yii::$app->authManager->addChild($userRole, $canAuthor);
         //Yii::$app->authManager->addChild($moderatorRole, $canModerator);
 
-   */     
+   */
         return 'Добавлено';
     }
-
 }

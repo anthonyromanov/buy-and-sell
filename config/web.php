@@ -47,7 +47,7 @@ $config = [
             ],
         ],
         'db' => $db,
-        
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -74,7 +74,7 @@ $config = [
             'decimalSeparator' => '.',
             'thousandSeparator' => ' ',
             'numberFormatterOptions' => [\NumberFormatter::MIN_FRACTION_DIGITS => 0,
-            \NumberFormatter::MAX_FRACTION_DIGITS => 2],            
+            \NumberFormatter::MAX_FRACTION_DIGITS => 2],
         ],
 
         'authManager' => [

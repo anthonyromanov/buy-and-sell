@@ -75,7 +75,7 @@ class Tickets
             'totalCount' => 8,
             'pagination' => [
             'pageSize' => 8,
-           ],
+            ],
         ]);
 
         return $popularTickets ?? null;
@@ -115,8 +115,7 @@ class Tickets
 
         $query = Ticket::find();
 
-        if (Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()]))
-        {
+        if (Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()])) {
             $query = Ticket::find()->where(['user_id' => Yii::$app->user->getId()]);
         }
 
@@ -132,7 +131,7 @@ class Tickets
         return $tickets ?? null;
     }
 
-    
+
     /**
      * Get user and ticket Data for page with comments
      */
@@ -160,7 +159,7 @@ class Tickets
 
         return $commentsData ?? null;
     }
-    
+
     /**
      * Get count of comments  to User's ticket
      */
@@ -187,17 +186,16 @@ class Tickets
 
         return $commentsData ?? null;
     }
-    
+
     /**
      * Get My Tickets for comments page
      */
     public function getMyTicketsComments(): ?ActiveDataProvider
     {
-        
+
         $query = Ticket::find();
-        
-        if (Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()]))
-        {
+
+        if (Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()])) {
             $query = Ticket::find()->where(['user_id' => Yii::$app->user->getId()]);
         }
 
@@ -235,7 +233,7 @@ class Tickets
         ->one();
 
         $deleteCategory = $category->delete();
-        $deleteComment = $comment->delete();  
+        $deleteComment = $comment->delete();
         $deleteTicket = $ticket->delete();
     }
 
@@ -249,16 +247,16 @@ class Tickets
         ->where(['id' => $id])
         ->one();
 
-        $removeComment = $comment->delete();  
+        $removeComment = $comment->delete();
     }
-    
+
     /**
     * Get Categories
     */
     public function getCategoriesList(): ActiveDataProvider
     {
         $categories = new ActiveDataProvider([
-            'query' => Category::find(),            
+            'query' => Category::find(),
         ]);
 
         return $categories;
@@ -274,7 +272,7 @@ class Tickets
 
         return $label;
     }
-    
+
     /**
     * Get ticket's types names
     */
@@ -291,7 +289,7 @@ class Tickets
         $ticket = Ticket::findOne($id);
         $item = $ticket->categories;
         $label = ArrayHelper::getColumn($item, 'label');
-        $labelsList = implode(', ', $label);       
+        $labelsList = implode(', ', $label);
 
         return $labelsList;
     }
@@ -306,6 +304,17 @@ class Tickets
         return $array;
     }
 
+    public static function getCardColor(int $id)
+    {
+        $ticket = Ticket::findOne($id);
+        $item = $ticket->categories;
+        $idCategory = ArrayHelper::getColumn($item, 'id');
+        $categoryList = implode(', ', $idCategory);
+        $color = explode(",", $categoryList, 2);
+
+        return $color[0];
+    }
+
     /**
     * Get Categories Tickets Count
     */
@@ -313,7 +322,7 @@ class Tickets
     {
         $category = Category::findOne($id);
         $item = $category->tickets;
-        $count = count($item);   
+        $count = count($item);
 
         return $count ?? null;
     }
@@ -336,5 +345,4 @@ class Tickets
 
         return $comments;
     }
-
 }

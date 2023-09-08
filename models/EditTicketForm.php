@@ -66,11 +66,11 @@ class EditTicketForm extends Model
      *
      */
 
-     public function beforeValidate()
-     {
+    public function beforeValidate()
+    {
         $this->picture = UploadedFile::getInstance($this, 'picture');
         return parent::beforeValidate();
-     }
+    }
 
     /**
      * Edit Ticket
@@ -89,37 +89,26 @@ class EditTicketForm extends Model
         $ticket->type = $this->type;
 
         $this->picture = UploadedFile::getInstance($this, 'picture');
-        if ($this->picture)
-        {
+        if ($this->picture) {
             $newname = uniqid('picture');
             $this->picture->saveAs('@webroot/uploads/tickets/' . $newname .  '.' . $this->picture->getExtension());
             $ticket->picture = '/' . 'uploads/tickets/' . $newname;
-        }
-
-        else {
+        } else {
             $ticket->picture = null;
         }
 
         $transaction = \Yii::$app->db->beginTransaction();
-        try
-        {
-            if (!$ticket->save())
-            {
+        try {
+            if (!$ticket->save()) {
                 throw new NoAddTicketException("Не удалось добавить объявление");
             }
-            
+
             $this->addCategory($ticket);
             $transaction->commit();
-        }
-        
-        catch (\Exception $e)
-        {
+        } catch (\Exception $e) {
             $transaction->rollBack();
             throw $e;
-        }
-        
-        catch (\Throwable $e)
-        {
+        } catch (\Throwable $e) {
             $transaction->rollBack();
             throw $e;
         }
@@ -134,12 +123,11 @@ class EditTicketForm extends Model
 
     public function addCategory($newTicket)
     {
-        foreach ($this->categories as $category)
-        {
+        foreach ($this->categories as $category) {
             $newCategory = new TicketToCategory();
             $newCategory->ticket_id = $newTicket->id;
             $newCategory->category_id = $category;
             $newCategory->save();
-        }        
+        }
     }
 }

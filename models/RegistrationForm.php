@@ -14,7 +14,7 @@ class RegistrationForm extends Model
     public $email;
     public $password;
     public $repeat_password;
-    
+
     /**
      * @var UploadedFile
      */
@@ -74,7 +74,7 @@ class RegistrationForm extends Model
         $user->password = Yii::$app->security->generatePasswordHash($this->password);
 
         $this->avatar = UploadedFile::getInstance($this, 'avatar');
-        
+
         if ($this->avatar) {
             $newname = uniqid('avatar') . '.' . $this->avatar->getExtension();
             $this->avatar->saveAs('@webroot/uploads/avatars/' . $newname);
@@ -89,8 +89,5 @@ class RegistrationForm extends Model
         $auth->assign($userRole, $user->getId());
 
         return $user;
-
-
-
     }
 }

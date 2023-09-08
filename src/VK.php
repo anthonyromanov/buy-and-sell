@@ -57,7 +57,7 @@ class VK
             //Даем роль Пользователя
             $userRole = Yii::$app->authManager->getRole('user');
             Yii::$app->authManager->assign($userRole, $user->getId());
-            
+
             if ($auth->save()) {
                 Yii::$app->user->login($user);
             }

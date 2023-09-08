@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 $this->title = 'Куплю Продам';
 
 $this->registerCssFile(
-  '/css/custom.css'
+    '/css/custom.css'
 );
 
 ?>
@@ -20,7 +20,7 @@ $this->registerCssFile(
           'id' => 'ticket-form',
           'options' => ['class' => 'ticket-form__form form'],
           ]);
-        ?>
+?>
           <div class="ticket-form__avatar-container js-preview-container">
             <div class="ticket-form__avatar js-preview"></div>
               <?= $form->field($ticketForm, 'picture', ['template' => '{input}{label}', 'options' => [

@@ -8,7 +8,7 @@ use yii\widgets\LinkPager;
 $this->title = 'Куплю Продам';
 
 $this->registerCssFile(
-  '/css/custom.css'
+    '/css/custom.css'
 );
 
 ?>
@@ -28,7 +28,7 @@ $this->registerCssFile(
         'class' => 'categories-list__wrapper',
         ],
       ]);
-?>
+        ?>
   <section class="tickets-list">
     <h2 class="visually-hidden">Предложения из категории <?= Html::encode($category_label);?></h2>
     <div class="tickets-list__wrapper">
@@ -55,6 +55,6 @@ $this->registerCssFile(
                       'linkOptions' => ['class' => 'pagination-link'],
                    ],
               ]);
-      ?>
+                                        ?>
     </div>
   </section>

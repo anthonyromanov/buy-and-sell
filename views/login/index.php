@@ -8,7 +8,7 @@ use yii\authclient\widgets\AuthChoice;
 $this->title = 'Куплю Продам';
 
 $this->registerCssFile(
-  '/css/custom.css'
+    '/css/custom.css'
 );
 
 
@@ -21,7 +21,7 @@ $this->registerCssFile(
   'options' => [
   'class' => 'login__form form',
   'autocomplete' => 'off'
-  ],                   
+  ],
   ]);
 ?>
 <div class="login__title">
@@ -43,7 +43,7 @@ $this->registerCssFile(
     'baseAuthUrl' => ['site/auth'],
     'popupMode' => false,
 ]); ?>
-<?php foreach ($authAuthChoice->getClients() as $client): ?>
+<?php foreach ($authAuthChoice->getClients() as $client) : ?>
 <a><?= $authAuthChoice->clientLink($client, 'Войти с <span class="icon icon--vk"></span>', ['class' => 'btn btn--small btn--flex btn--white']) ?></a>
 <?php endforeach; ?>
 <?php AuthChoice::end(); ?>

@@ -91,7 +91,7 @@ class User extends ActiveRecord implements IdentityInterface
             [['vk_token'], 'integer'],
             [['name', 'email'], 'string', 'max' => 128],
             [['avatar', 'password'], 'string', 'max' => 255],
-            [['email'], 'unique', 'message'=> 'введите адрес'],
+            [['email'], 'unique', 'message' => 'введите адрес'],
         ];
     }
 

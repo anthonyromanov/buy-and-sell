@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models\forms;
 
 use yii\base\Model;
@@ -6,7 +7,6 @@ use yii\base\Model;
 class ChatForm extends Model
 {
     public string $message = '';
-
     public function rules(): array
     {
         return [

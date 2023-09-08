@@ -5,7 +5,7 @@ use yii\helpers\Url;
 use app\models\Ticket;
 use app\models\Category;
 use Buyandsell\Tickets;
-use \yii\helpers\StringHelper;
+use yii\helpers\StringHelper;
 
 ?>
 

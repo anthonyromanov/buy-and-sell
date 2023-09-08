@@ -13,7 +13,7 @@ abstract class AccessController extends Controller
             'access' => [
                 'class' => AccessControl::class,
                 'rules' => [
-                    [   
+                    [
                         'allow' => true,
                         'roles' => ['?', '@']
                     ],

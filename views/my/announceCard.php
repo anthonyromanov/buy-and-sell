@@ -4,15 +4,15 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\models\Ticket;
 use Buyandsell\Tickets;
-use \yii\helpers\StringHelper;
+use yii\helpers\StringHelper;
 use yii\widgets\ListView;
 
 ?>
-<?php if (Yii::$app->user->can('viewContent') && Tickets::getMyTicketsCommentsCount($model->id) > 0
-|| Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()]) && Tickets::getMyTicketsCommentsCount($model->id) > 0
+<?php if (
+    Yii::$app->user->can('viewContent') && Tickets::getMyTicketsCommentsCount($model->id) > 0
+    || Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()]) && Tickets::getMyTicketsCommentsCount($model->id) > 0
 ) : ?>
-
-<?php echo Yii::$app->user->can('viewOwnContent', ['user_id' => $model->id]); ?>
+    <?php echo Yii::$app->user->can('viewOwnContent', ['user_id' => $model->id]); ?>
     <div class="comments__block">
         <div class="comments__header">
             <a href="<?= Url::to(['/offers', 'id' => $model->id]); ?>" class="announce-card">
@@ -24,7 +24,7 @@ use yii\widgets\ListView;
             </a>
         </div>
         <ul class="comments-list">
-            <?php foreach (Tickets::getMyTicketsCommentsData($model->id) as $data): ?>
+            <?php foreach (Tickets::getMyTicketsCommentsData($model->id) as $data) : ?>
                 <li class="js-card">
                 <div class="comment-card">
                     <div class="comment-card__header">

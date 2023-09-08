@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
           'id' => 'ticket-form',
           'options' => ['class' => 'ticket-form__form form'],
           ]);
-        ?>
+?>
 
           <div class="ticket-form__avatar-container js-preview-container uploaded">
             <div class="ticket-form__avatar js-preview">
@@ -22,8 +22,8 @@ use yii\widgets\ActiveForm;
             </div>
             <?= $form->field($ticketForm, 'picture', ['template' => '{input}{label}', 'options' => [
                 'class' => 'ticket-form__field-avatar']])
-                ->fileInput(['class' => 'visually-hidden js-file-field'])
-                ->label((isset($ticket->picture)) ? 'Загрузить другое фото…' : 'Загрузить фото…', ['class' => 'js-file-field']); ?>
+                        ->fileInput(['class' => 'visually-hidden js-file-field'])
+                        ->label((isset($ticket->picture)) ? 'Загрузить другое фото…' : 'Загрузить фото…', ['class' => 'js-file-field']); ?>
           </div>
           <div class="ticket-form__content">
             <div class="ticket-form__row">
@@ -38,7 +38,7 @@ use yii\widgets\ActiveForm;
             <div class="ticket-form__row">
               <?php echo $form->field($ticketForm, 'categories[]', ['template' => "{input}\n{error}", 'options' => ['tag' => false]])
                   ->dropDownList($categories, ['class' => 'form__select js-multiple-select',  'data-label' => 'Выберите категорию публикации']);
-              ?>
+                ?>
             </div>
             <div class="ticket-form__row">
               <?php echo $form->field($ticketForm, 'price', ['template' => "{input}\n{label}\n{error}", 'options' => [

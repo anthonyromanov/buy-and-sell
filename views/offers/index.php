@@ -14,7 +14,7 @@ $this->registerJsFile(
 
 $this->registerCssFile(
     '/css/custom.css'
-  );  
+);
 
 ?>
 
@@ -53,7 +53,7 @@ $this->registerCssFile(
                     </p>
                 </div>
                 <ul class="ticket__tags">
-                <?php foreach (Tickets::getCategoriesToTicket($ticket->id) as $category): ?>
+                <?php foreach (Tickets::getCategoriesToTicket($ticket->id) as $category) : ?>
                      <li>
                         <a href="<?= Url::to(['/offers/category', 'id' => $category->id]); ?>" class="category-tile category-tile--small">
                             <span class="category-tile__image">
@@ -73,16 +73,16 @@ $this->registerCssFile(
                     <p>Отправка комментариев доступна <br>только для зарегистрированных пользователей.</p>
                     <a href="<?= Url::to(['/login']); ?>" class="btn btn--big">Вход и регистрация</a>
                 </div>
-            <?php endif; ?>
+        <?php endif; ?>
 
             <?php if (Yii::$app->user->can('canUser')) : ?>
             <h2 class="ticket__subtitle">Коментарии</h2>
             <div class="ticket__comment-form">
-            <?php $form = ActiveForm::begin([
+                <?php $form = ActiveForm::begin([
                     'id' => 'comment-form',
                     'options' => ['class' => 'form comment-form'],
                 ]);
-            ?>
+                ?>
                 <div class="comment-form__header">
                     <a href="#" class="comment-form__avatar avatar">
                         <img src="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>.jpg" srcset="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>@2x.jpg 2x" alt="Аватар пользователя">
@@ -96,7 +96,7 @@ $this->registerCssFile(
                     'autocomplete' => 'off', 'autocapitalize' => 'off']]); ?>
                 </div>
                 <?= Html::submitInput('Отправить', ['class' => 'comment-form__button btn btn--white js-button']); ?>
-            <?php ActiveForm::end(); ?>
+                <?php ActiveForm::end(); ?>
             </div>
             <?php endif; ?>
             <?php if (!isset($commentsCount) || $commentsCount === 0) : ?> 

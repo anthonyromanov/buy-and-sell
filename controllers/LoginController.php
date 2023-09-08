@@ -10,7 +10,6 @@ use yii\bootstrap5\ActiveForm;
 
 class LoginController extends AccessController
 {
-
     public function behaviors()
     {
         $rules = parent::behaviors();

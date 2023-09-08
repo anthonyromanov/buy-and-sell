@@ -27,7 +27,7 @@ use yii\helpers\Url;
             'tag' => 'ul',
           ],
         ]);
-      ?>
+        ?>
 
     </div>
   </section>
