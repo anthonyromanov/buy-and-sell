@@ -10,7 +10,8 @@ use yii\widgets\ListView;
 ?>
 <?php if (
     Yii::$app->user->can('viewContent') && Tickets::getMyTicketsCommentsCount($model->id) > 0
-    || Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()]) && Tickets::getMyTicketsCommentsCount($model->id) > 0
+    || Yii::$app->user->can('viewOwnContent', ['user_id' => Yii::$app->user->getId()])
+    && Tickets::getMyTicketsCommentsCount($model->id) > 0
 ) : ?>
     <?php echo Yii::$app->user->can('viewOwnContent', ['user_id' => $model->id]); ?>
     <div class="comments__block">
@@ -18,8 +19,10 @@ use yii\widgets\ListView;
             <a href="<?= Url::to(['/offers', 'id' => $model->id]); ?>" class="announce-card">
                 <h2 class="announce-card__title"><?= Html::encode($model->title);?></h2>
                 <span class="announce-card__info">
-                <span class="announce-card__price">₽ <?= Html::encode(Yii::$app->formatter->asDecimal($model->price)); ?></span>
-                <span class="announce-card__type"><?= Tickets::getTicketType(Html::encode($model->type)); ?></span>
+                    <span class="announce-card__price">₽ 
+                        <?= Html::encode(Yii::$app->formatter->asDecimal($model->price)); ?>
+                    </span>
+                    <span class="announce-card__type"><?= Tickets::getTicketType(Html::encode($model->type)); ?></span>
                 </span>
             </a>
         </div>
@@ -29,7 +32,8 @@ use yii\widgets\ListView;
                 <div class="comment-card">
                     <div class="comment-card__header">
                         <a href="#" class="comment-card__avatar avatar">
-                            <img src="<?= Html::encode($data->user->avatar);?>.jpg" srcset="<?= Html::encode($data->user->avatar);?>@2x.jpg 2x" alt="Аватар пользователя">
+                            <img src="<?= Html::encode($data->user->avatar);?>.jpg" 
+                            srcset="<?= Html::encode($data->user->avatar);?>@2x.jpg 2x" alt="Аватар пользователя">
                         </a>
                         <p class="comment-card__author"><?= Html::encode($data->user->name);?></p>
                     </div>
@@ -38,7 +42,8 @@ use yii\widgets\ListView;
                     </div>
 
                         
-                    <a href="<?= Url::to(['/my/remove', 'id' => $data->id]); ?>" class="comment-card__delete js-delete">Удалить</a>
+                    <a href="<?= Url::to(['/my/remove', 'id' => $data->id]); ?>" 
+                    class="comment-card__delete js-delete">Удалить</a>
                 </div>
             </li>
             <?php endforeach; ?>

@@ -24,7 +24,8 @@ $statusCode = $exception->statusCode;
 <?php $this->beginPage() ?>
 
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>" class="<?= (nl2br(Html::encode($statusCode)) !== 500) ? 'html-not-found' : 'html-server'; ?>">
+<html lang="<?= Yii::$app->language ?>" 
+class="<?= (nl2br(Html::encode($statusCode)) !== 500) ? 'html-not-found' : 'html-server'; ?>">
 <head>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>

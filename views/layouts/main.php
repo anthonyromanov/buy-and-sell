@@ -44,13 +44,16 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
       </ul>
     </nav>
     <form class="search" method="get" action="<?= Url::to(['/search']); ?>" autocomplete="off">
-      <input type="search" name="query" placeholder="Поиск" aria-label="Поиск" value ="<?php (Yii::$app->request->getIsget()) ?? Html::encode(trim(Yii::$app->request->get(name: 'query'))) ?>">
+      <input type="search" name="query" placeholder="Поиск" aria-label="Поиск" 
+      value ="<?php (Yii::$app->request->getIsget()) ?? Html::encode(trim(Yii::$app->request->get(name: 'query'))) ?>">
       <div class="search__icon"></div>
       <div class="search__close-btn"></div>
     </form>
     <?php if (isset(Yii::$app->user->getIdentity()->avatar)) : ?>
     <a class="header__avatar avatar" href="<?= Url::to(['/my']); ?>">
-      <img src="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>.jpg" srcset="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>@2x.jpg 2x" alt="Аватар <?= Html::encode(Yii::$app->user->getIdentity()->name); ?>">
+      <img src="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>.jpg" 
+      srcset="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>@2x.jpg 2x" alt="Аватар 
+        <?= Html::encode(Yii::$app->user->getIdentity()->name); ?>">
     </a>
     <?php endif; ?>
     <a class="header__input" href="<?= Url::to(['/login']); ?>">Вход и регистрация</a>
@@ -64,7 +67,8 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <footer class="page-footer">
   <div class="page-footer__wrapper">
     <div class="page-footer__col">
-      <a href="<?= Url::to('https://htmlacademy.ru'); ?>" class="page-footer__logo-academy" aria-label="Ссылка на сайт HTML-Академии">
+      <a href="<?= Url::to('https://htmlacademy.ru'); ?>" class="page-footer__logo-academy" 
+      aria-label="Ссылка на сайт HTML-Академии">
         <svg width="132" height="46">
           <use xlink:href="/img/sprite_auto.svg#logo-htmlac"></use>
         </svg>

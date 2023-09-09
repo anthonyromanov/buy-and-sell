@@ -39,20 +39,25 @@ $this->registerCssFile(
                   'class' => 'form__field'], 'inputOptions' => ['placeholder' => 'Описание']])->textarea(); ?>
             </div>
             <div class="ticket-form__row">
-            <?php echo $form->field($ticketForm, 'categories[]', ['template' => "{input}\n{error}", 'options' => ['tag' => false]])
-                ->dropDownList($categories, ['class' => 'form__select js-multiple-select',  'data-label' => 'Выберите категорию публикации']);
+            <?php echo $form->field($ticketForm, 'categories[]', ['template' => "{input}\n{error}",
+            'options' => ['tag' => false]])
+                ->dropDownList($categories, ['class' => 'form__select js-multiple-select',
+                'data-label' => 'Выберите категорию публикации']);
             ?>
             </div>
             <div class="ticket-form__row">
               <?php echo $form->field($ticketForm, 'price', ['template' => "{input}\n{error}", 'options' => [
-                'class' => 'form__field form__field--price'], 'inputOptions' => ['placeholder' => 'Цена']])->textInput(); ?>
+                'class' => 'form__field form__field--price'],
+                'inputOptions' => ['placeholder' => 'Цена']])->textInput(); ?>
 
               <div class="form__switch switch">
-                <? echo $form->field($ticketForm, 'type', ['template' => "{input}\n{label}\n{error}", 'options' => ['class' => 'switch__item'],
-                'inputOptions' => ['class' => 'visually-hidden', 'type' => 'radio', 'id' => 'buy-field', 'value' => 'buy'],
-                'labelOptions' => ['class' => 'switch__button', 'label' => 'Куплю']]); ?>
-                <? echo $form->field($ticketForm, 'type', ['template' => "{input}\n{label}\n{error}", 'options' => ['class' => 'switch__item'],
-                'inputOptions' => ['class' => 'visually-hidden', 'type' => 'radio', 'id' => 'sell-field', 'value' => 'sell'],
+                <?php echo $form->field($ticketForm, 'type', ['template' => "{input}\n{label}\n{error}",
+                'options' => ['class' => 'switch__item'],
+                'inputOptions' => ['class' => 'visually-hidden', 'type' => 'radio', 'id' => 'buy-field',
+                'value' => 'buy'], 'labelOptions' => ['class' => 'switch__button', 'label' => 'Куплю']]); ?>
+                <?php echo $form->field($ticketForm, 'type', ['template' => "{input}\n{label}\n{error}",
+                'options' => ['class' => 'switch__item'], 'inputOptions' => ['class' => 'visually-hidden',
+                'type' => 'radio', 'id' => 'sell-field', 'value' => 'sell'],
                 'labelOptions' => ['class' => 'switch__button', 'label' => 'Продам']]); ?>
               </div>
 

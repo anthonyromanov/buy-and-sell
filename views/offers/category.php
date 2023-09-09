@@ -33,7 +33,8 @@ $this->registerCssFile(
     <h2 class="visually-hidden">Предложения из категории <?= Html::encode($category_label);?></h2>
     <div class="tickets-list__wrapper">
       <div class="tickets-list__header">
-        <p class="tickets-list__title"><?= Html::encode($category_label);?> <b class="js-qty"><?= Html::encode($tickets_count);?></b></p>
+        <p class="tickets-list__title"><?= Html::encode($category_label);?> <b class="js-qty">
+          <?= Html::encode($tickets_count);?></b></p>
       </div>
             <?php echo ListView::widget([
                   'dataProvider' => $current_tickets,
@@ -55,6 +56,6 @@ $this->registerCssFile(
                       'linkOptions' => ['class' => 'pagination-link'],
                    ],
               ]);
-                                        ?>
+            ?>
     </div>
   </section>

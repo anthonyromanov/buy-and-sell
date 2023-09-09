@@ -36,8 +36,10 @@ class Comment extends \yii\db\ActiveRecord
             [['ticket_id', 'user_id'], 'required'],
             [['ticket_id', 'user_id'], 'integer'],
             [['comment'], 'string'],
-            [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ticket::class, 'targetAttribute' => ['ticket_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ticket::class,
+            'targetAttribute' => ['ticket_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class,
+            'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 

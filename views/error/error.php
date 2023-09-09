@@ -34,8 +34,11 @@ $this->context->layout = 'error';
           <a href="<?= Url::home(); ?>">Главная страница</a>
         </li>
       </ul>
-      <form class="error__search search search--small" method="get" action="<?= Url::to(['/search']); ?>" autocomplete="off">
-        <input type="search" name="query" placeholder="Поиск" aria-label="Поиск" value ="<?php (Yii::$app->request->getIsget()) ?? Html::encode(trim(Yii::$app->request->get(name: 'query'))) ?>">
+      <form class="error__search search search--small" method="get" action="<?= Url::to(['/search']); ?>"
+      autocomplete="off">
+        <input type="search" name="query" placeholder="Поиск" aria-label="Поиск" 
+        value ="<?php (Yii::$app->request->getIsget()) ??
+        Html::encode(trim(Yii::$app->request->get(name: 'query'))) ?>">
         <div class="search__icon"></div>
         <div class="search__close-btn"></div>
       </form>

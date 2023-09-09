@@ -1,5 +1,3 @@
-<!------ https://infotechwar.com/it-solutions/how-to-build-chat-application-with-firebase-web/ ---------->
-
 <!DOCTYPE html>
 <html>
 <head>

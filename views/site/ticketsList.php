@@ -8,9 +8,13 @@ use yii\helpers\StringHelper;
 
 ?>
         <li class="tickets-list__item">
-          <div class="ticket-card ticket-card--color<?php echo sprintf("%02d", Html::encode(Tickets::getCardColor($model->id)));?>">
+          <div class="ticket-card ticket-card--color<?php echo sprintf(
+              "%02d",
+              Html::encode(Tickets::getCardColor($model->id))
+          );?>">
              <div class="ticket-card__img">
-              <img src="<?= Html::encode($model->picture); ?>.jpg" srcset="<?= Html::encode($model->picture); ?>@2x.jpg 2x" alt="Изображение товара">
+              <img src="<?= Html::encode($model->picture); ?>.jpg" 
+              srcset="<?= Html::encode($model->picture); ?>@2x.jpg 2x" alt="Изображение товара">
             </div>
             <div class="ticket-card__info">
               <span class="ticket-card__label"><?= Tickets::getTicketType(Html::encode($model->type)); ?></span>
@@ -20,8 +24,10 @@ use yii\helpers\StringHelper;
               <?php endforeach; ?>
               </div>
               <div class="ticket-card__header">
-                <h3 class="ticket-card__title"><a href="<?= Url::to(['/offers', 'id' => $model->id]); ?>"><?= Html::encode($model->title); ?></a></h3>
-                <p class="ticket-card__price"><span class="js-sum"><?= Html::encode(Yii::$app->formatter->asDecimal($model->price)); ?></span> ₽</p>
+                <h3 class="ticket-card__title"><a href="<?= Url::to(['/offers', 'id' => $model->id]); ?>">
+                <?= Html::encode($model->title); ?></a></h3>
+                <p class="ticket-card__price"><span class="js-sum">
+                  <?= Html::encode(Yii::$app->formatter->asDecimal($model->price)); ?></span> ₽</p>
               </div>
               <div class="ticket-card__desc">
                 <p><?= Html::encode(StringHelper::truncate($model->description, 55, '...')); ?></p>

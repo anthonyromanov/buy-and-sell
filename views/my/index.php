@@ -12,7 +12,9 @@ use yii\helpers\Url;
     <h2 class="visually-hidden">Самые новые предложения</h2>
     <div class="tickets-list__wrapper">
       <div class="tickets-list__header">
-        <a href="<?= Url::to(['/offers/add']); ?>" class="tickets-list__btn btn btn--big"><span>Новая публикация</span></a>
+        <a href="<?= Url::to(['/offers/add']); ?>" class="tickets-list__btn btn btn--big">
+          <span>Новая публикация</span>
+      </a>
       </div>
       <?php
         echo ListView::widget([

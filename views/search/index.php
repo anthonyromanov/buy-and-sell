@@ -13,13 +13,15 @@ use yii\helpers\StringHelper;
     <h1 class="visually-hidden">Результаты поиска</h1>
     <div class="search-results__wrapper">
     <?php if (isset($count) && $count !== 0) : ?> 
-      <p class="search-results__label">Найдено <span class="js-results"><?= Html::encode($count); ?> публикации</span></p>
+      <p class="search-results__label">Найдено <span class="js-results"><?= Html::encode($count); ?> публикации
+    </span></p>
       <ul class="search-results__list">
         <?php foreach ($results as $search) : ?>
         <li class="search-results__item">
           <div class="ticket-card ticket-card--color<?php echo sprintf("%02d", Html::encode($search->id));?>">
             <div class="ticket-card__img">
-              <img src="<?= Html::encode($search->picture); ?>.jpg" srcset="<?= Html::encode($search->picture); ?>@2x.jpg 2x" alt="Изображение товара">
+              <img src="<?= Html::encode($search->picture); ?>.jpg" 
+              srcset="<?= Html::encode($search->picture); ?>@2x.jpg 2x" alt="Изображение товара">
             </div>
             <div class="ticket-card__info">
               <span class="ticket-card__label"><?= Tickets::getTicketType(Html::encode($search->type)); ?></span>
@@ -28,7 +30,8 @@ use yii\helpers\StringHelper;
               </div>
               <div class="ticket-card__header">
                 <h3 class="ticket-card__title"><a href="#"><?= Html::encode($search->title); ?></a></h3>
-                <p class="ticket-card__price"><span class="js-sum"><?= Html::encode(Yii::$app->formatter->asDecimal($search->price)); ?></span> ₽</p>
+                <p class="ticket-card__price"><span class="js-sum">
+                  <?= Html::encode(Yii::$app->formatter->asDecimal($search->price)); ?></span> ₽</p>
               </div>
               <div class="ticket-card__desc">
                 <p><?= Html::encode(StringHelper::truncate($search->description, 55, '...')); ?></p>
@@ -58,7 +61,8 @@ use yii\helpers\StringHelper;
                   'itemOptions' => [
                     'tag' => false,
                   ],
-                  'layout' =>  '<div class="tickets-list__header"><p class="tickets-list__title">Самое свежее</p><a href="#" class="tickets-list__link"><div>{pager}</div></a></div><ul>{items}</ul>',
+                  'layout' =>  '<div class="tickets-list__header"><p class="tickets-list__title">Самое свежее</p>
+                  <a href="#" class="tickets-list__link"><div>{pager}</div></a></div><ul>{items}</ul>',
                   'summary' => 'Ещё {count}',
                   'emptyText' => false,
                   'options' => [

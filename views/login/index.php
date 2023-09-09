@@ -44,7 +44,13 @@ $this->registerCssFile(
     'popupMode' => false,
 ]); ?>
 <?php foreach ($authAuthChoice->getClients() as $client) : ?>
-<a><?= $authAuthChoice->clientLink($client, 'Войти с <span class="icon icon--vk"></span>', ['class' => 'btn btn--small btn--flex btn--white']) ?></a>
+<a>
+    <?= $authAuthChoice->clientLink(
+        $client,
+        'Войти с <span class="icon icon--vk"></span>',
+        ['class' => 'btn btn--small btn--flex btn--white']
+    ) ?>
+</a>
 <?php endforeach; ?>
 <?php AuthChoice::end(); ?>
 <?php ActiveForm::end() ?>

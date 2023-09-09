@@ -24,14 +24,18 @@ $this->registerCssFile(
         <div class="ticket__content">
             <div class="ticket__img">
                 <?php if (isset($ticket->picture) && !empty($ticket->picture)) : ?>
-                <img src="<?= Html::encode($ticket->picture); ?>.jpg" srcset="<?= Html::encode($ticket->picture); ?>.jpg 2x" alt="Изображение <?= Html::encode($ticket->title); ?>">
+                <img src="<?= Html::encode($ticket->picture); ?>.jpg" 
+                srcset="<?= Html::encode($ticket->picture); ?>.jpg 2x" 
+                alt="Изображение <?= Html::encode($ticket->title); ?>">
                 <?php endif; ?>
             </div>
             <div class="ticket__info">
                 <h2 class="ticket__title"><?= Html::encode($ticket->title); ?></h2>
                 <div class="ticket__header">
                     <p class="ticket__price">
-                        <span class="js-sum"><?= Html::encode(Yii::$app->formatter->asDecimal($ticket->price)); ?></span> ₽
+                        <span class="js-sum">
+                            <?= Html::encode(Yii::$app->formatter->asDecimal($ticket->price)); ?>
+                        </span> ₽
                     </p>
                     <p class="ticket__action"><?= Tickets::getTicketType(Html::encode($ticket->type)); ?></p>
                 </div>
@@ -49,15 +53,19 @@ $this->registerCssFile(
                     </p>
                     <p>
                         <b>Контакты:</b>
-                        <a href="mailto:<?= Html::encode($ticket->user->email); ?>"><?= Html::encode($ticket->user->email); ?></a>
+                        <a href="mailto:<?= Html::encode($ticket->user->email); ?>">
+                            <?= Html::encode($ticket->user->email); ?>
+                        </a>
                     </p>
                 </div>
                 <ul class="ticket__tags">
                 <?php foreach (Tickets::getCategoriesToTicket($ticket->id) as $category) : ?>
                      <li>
-                        <a href="<?= Url::to(['/offers/category', 'id' => $category->id]); ?>" class="category-tile category-tile--small">
+                        <a href="<?= Url::to(['/offers/category', 'id' => $category->id]); ?>" 
+                        class="category-tile category-tile--small">
                             <span class="category-tile__image">
-                                <img src="<?= Html::encode($category->path); ?>.jpg" srcset="<?= Html::encode($category->path); ?>@2x.jpg 2x" alt="Иконка категории">
+                                <img src="<?= Html::encode($category->path); ?>.jpg" 
+                                srcset="<?= Html::encode($category->path); ?>@2x.jpg 2x" alt="Иконка категории">
                             </span>
                             <span class="category-tile__label"><?= Html::encode($category->label); ?></span>
                         </a>
@@ -85,15 +93,17 @@ $this->registerCssFile(
                 ?>
                 <div class="comment-form__header">
                     <a href="#" class="comment-form__avatar avatar">
-                        <img src="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>.jpg" srcset="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>@2x.jpg 2x" alt="Аватар пользователя">
+                        <img src="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>.jpg" 
+                        srcset="<?= Html::encode(Yii::$app->user->getIdentity()->avatar); ?>@2x.jpg 2x" 
+                        alt="Аватар пользователя">
                     </a>
                     <p class="comment-form__author"><?= Html::encode(Yii::$app->user->getIdentity()->name); ?></p>
                 </div>
 
                 <div class="comment-form__field">
-                    <?php echo $form->field($commentForm, 'comment', ['template' => "{input}\n{label}\n{error}", 'options' => [
-                    'class' => 'form__field']])->textarea(['options' => ['class' => 'js-field', 'autocorrect' => 'off',
-                    'autocomplete' => 'off', 'autocapitalize' => 'off']]); ?>
+                    <?php echo $form->field($commentForm, 'comment', ['template' => "{input}\n{label}\n{error}",
+                    'options' => ['class' => 'form__field']])->textarea(['options' => ['class' => 'js-field',
+                    'autocorrect' => 'off', 'autocomplete' => 'off', 'autocapitalize' => 'off']]); ?>
                 </div>
                 <?= Html::submitInput('Отправить', ['class' => 'comment-form__button btn btn--white js-button']); ?>
                 <?php ActiveForm::end(); ?>

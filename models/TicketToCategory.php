@@ -32,8 +32,10 @@ class TicketToCategory extends \yii\db\ActiveRecord
         return [
             [['ticket_id', 'category_id'], 'required'],
             [['ticket_id', 'category_id'], 'integer'],
-            [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ticket::class, 'targetAttribute' => ['ticket_id' => 'id']],
-            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class, 'targetAttribute' => ['category_id' => 'id']],
+            [['ticket_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ticket::class,
+            'targetAttribute' => ['ticket_id' => 'id']],
+            [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => Category::class,
+            'targetAttribute' => ['category_id' => 'id']],
         ];
     }
 

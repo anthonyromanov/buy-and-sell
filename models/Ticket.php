@@ -42,7 +42,8 @@ class Ticket extends \yii\db\ActiveRecord
             [['price', 'user_id'], 'integer'],
             [['title', 'picture'], 'string', 'max' => 255],
             [['description'], 'string'],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class,
+            'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
