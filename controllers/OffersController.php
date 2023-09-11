@@ -18,6 +18,13 @@ class OffersController extends AccessController
     public function behaviors()
     {
         $rules = parent::behaviors();
+        $ruleGuest = [
+            'allow' => true,
+            'actions' => ['edit', 'add'],
+            'matchCallback' => function ($rule, $action) {
+                return Yii::$app->user->can('canUser');
+            }
+        ];
         $rule = [
             'allow' => false,
             'actions' => ['edit', 'add'],
@@ -26,6 +33,7 @@ class OffersController extends AccessController
             }
         ];
 
+        array_unshift($rules['access']['rules'], $ruleGuest);
         array_unshift($rules['access']['rules'], $rule);
 
         return $rules;
@@ -136,64 +144,5 @@ class OffersController extends AccessController
             'tickets_count' => $tickets_count,
             'category_label' => $category_label,
         ]);
-    }
-
-    public function actionRole()
-    {
-
-    /*
-        $admin = Yii::$app->authManager->createRole('admin');
-        $admin->description = 'Администратор';
-        Yii::$app->authManager->add($admin);
-
-        $moderator = Yii::$app->authManager->createRole('moderator');
-        $moderator->description = 'Модератор';
-        Yii::$app->authManager->add($moderator);
-
-        $user = Yii::$app->authManager->createRole('user');
-        $user->description = 'Пользователь';
-        Yii::$app->authManager->add($user);
-
-        $permit = Yii::$app->authManager->createPermission('canUser');
-        $permit->description = 'Право входа в личный кабинет';
-        Yii::$app->authManager->add($permit);
-
-        $adminRole = Yii::$app->authManager->getRole('admin');
-        $userRole = Yii::$app->authManager->getRole('user');
-        $moderatorRole = Yii::$app->authManager->getRole('moderator');
-        $permit = Yii::$app->authManager->getPermission('canUser');
-        Yii::$app->authManager->addChild($adminRole, $permit);
-        Yii::$app->authManager->addChild($userRole, $permit);
-        Yii::$app->authManager->addChild($moderatorRole, $permit);
-
-
-        $userRole = Yii::$app->authManager->getRole('user');
-        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
-
-
-        // Добавляем правило проверки является ли текущий пользователь автором объявления
-        $auth = Yii::$app->authManager;
-        $rule = new AuthorRule();
-        $auth->add($rule);
-
-        // Добавляем разрешение "canModerator"
-        $canModerator = Yii::$app->authManager->createPermission('canModerator');
-        $canModerator->description = 'Редактирование объявления';
-        Yii::$app->authManager->add($canModerator);
-
-        // Добавляем разрешение "canAuthor"
-        $canAuthor = Yii::$app->authManager->createPermission('canAuthor');
-        $canAuthor->description = 'Смотреть свои объявления и комментарии';
-        $canAuthor->ruleName = $rule->name;
-        Yii::$app->authManager->add($сanAuthor);
-
-        // Добавляем наследование
-        //$userRole = Yii::$app->authManager->getRole('user');
-        //$moderatorRole = Yii::$app->authManager->getRole('moderator');
-        //Yii::$app->authManager->addChild($userRole, $canAuthor);
-        //Yii::$app->authManager->addChild($moderatorRole, $canModerator);
-
-   */
-        return 'Добавлено';
     }
 }

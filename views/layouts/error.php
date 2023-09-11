@@ -37,9 +37,6 @@ class="<?= (nl2br(Html::encode($statusCode)) !== 500) ? 'html-not-found' : 'html
 <?= $content; ?> 
 </main>
 
-<script src="/js/vendor.js"></script>
-<script src="/js/main.js"></script>
-
 <?php $this->endBody() ?>
 </body>
 </html>
