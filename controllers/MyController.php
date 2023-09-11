@@ -14,6 +14,15 @@ class MyController extends AccessController
     {
 
         $rules = parent::behaviors();
+
+        $ruleGuest = [
+            'allow' => false,
+            'actions' => ['index', 'comment'],
+            'matchCallback' => function ($rule, $action) {
+                return Yii::$app->user->isGuest;
+            }
+        ];
+
         $rule = [
             'allow' => false,
             'actions' => ['remove', 'delete'],
@@ -32,6 +41,7 @@ class MyController extends AccessController
 
         array_unshift($rules['access']['rules'], $rule);
         array_unshift($rules['access']['rules'], $ruleModerator);
+        array_unshift($rules['access']['rules'], $ruleGuest);
 
         return $rules;
     }

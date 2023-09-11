@@ -19,10 +19,10 @@ class OffersController extends AccessController
     {
         $rules = parent::behaviors();
         $ruleGuest = [
-            'allow' => true,
+            'allow' => false,
             'actions' => ['edit', 'add'],
             'matchCallback' => function ($rule, $action) {
-                return Yii::$app->user->can('canUser');
+                return Yii::$app->user->isGuest;
             }
         ];
         $rule = [
